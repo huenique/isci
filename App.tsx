@@ -1,23 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var expo_status_bar_1 = require("expo-status-bar");
-var react_native_1 = require("react-native");
-function App() {
+import { StyleSheet, Text, View } from 'react-native';
+
+export default function App() {
   return (
-    <react_native_1.View style={styles.container}>
-      <react_native_1.Text>
-        Open up App.js to start working on your app!
-      </react_native_1.Text>
-      <expo_status_bar_1.StatusBar style="auto" />
-    </react_native_1.View>
+    <View style={styles.container}>
+      <Text>Hello, World!</Text>
+    </View>
   );
 }
-exports.default = App;
-var styles = react_native_1.StyleSheet.create({
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
