@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "prettier:check": "prettier --check .",
-    "prettier:write": "prettier --write ."
+    "prettier:check": "prettier --config .prettierrc --check \"**/*.{tsx,ts}\"",
+    "prettier:write": "prettier  --config .prettierrc --write --write \"**/*.{tsx,ts}\""
   },
   "dependencies": {
     "@react-navigation/stack": "^6.3.16",
