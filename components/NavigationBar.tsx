@@ -1,6 +1,6 @@
-import { Appbar } from 'react-native-paper';
+import { Appbar } from "react-native-paper";
 
-import { getHeaderTitle } from '@react-navigation/elements';
+import { getHeaderTitle } from "@react-navigation/elements";
 
 type NavigationBarProps = {
   navigation: any;
