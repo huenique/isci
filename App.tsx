@@ -1,13 +1,16 @@
-import React from "react";
-import { BottomNavigation } from "react-native-paper";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import React from 'react';
+import { BottomNavigation } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { CommonActions, NavigationContainer } from "@react-navigation/native";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { CommonActions, NavigationContainer } from '@react-navigation/native';
 
-import FirstAid from "./screens/FirsAid";
-import Home from "./screens/Home";
+import FirstAid from './screens/FirsAid';
+import Home from './screens/Home';
+import Information from './screens/Information';
+import Evacuation from './screens/Evacuation';
+import Contacts from './screens/Contacts';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,9 +26,9 @@ export default function App() {
               safeAreaInsets={insets}
               onTabPress={({ route, preventDefault }) => {
                 const event = navigation.emit({
-                  type: "tabPress",
+                  type: 'tabPress',
                   target: route.key,
-                  canPreventDefault: true,
+                  canPreventDefault: true
                 });
 
                 if (event.defaultPrevented) {
@@ -33,7 +36,7 @@ export default function App() {
                 } else {
                   navigation.dispatch({
                     ...CommonActions.navigate(route.name, route.params),
-                    target: state.key,
+                    target: state.key
                   });
                 }
               }}
@@ -60,10 +63,42 @@ export default function App() {
           )}
         >
           <Tab.Screen
+            name="Contacts"
+            component={Contacts}
+            options={{
+              tabBarLabel: 'Contacts',
+              tabBarIcon: ({ color, size }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="contacts"
+                    size={size}
+                    color={color}
+                  />
+                );
+              }
+            }}
+          />
+          <Tab.Screen
+            name="Evacuation"
+            component={Evacuation}
+            options={{
+              tabBarLabel: 'Evacuation',
+              tabBarIcon: ({ color, size }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="exit-run"
+                    size={size}
+                    color={color}
+                  />
+                );
+              }
+            }}
+          />
+          <Tab.Screen
             name="Home"
             component={Home}
             options={{
-              tabBarLabel: "Home",
+              tabBarLabel: 'Home',
               tabBarIcon: ({ color, size }) => {
                 return (
                   <MaterialCommunityIcons
@@ -72,23 +107,39 @@ export default function App() {
                     color={color}
                   />
                 );
-              },
+              }
             }}
           />
           <Tab.Screen
             name="First Aid"
             component={FirstAid}
             options={{
-              tabBarLabel: "Settings",
+              tabBarLabel: 'First Aid',
               tabBarIcon: ({ color, size }) => {
                 return (
                   <MaterialCommunityIcons
-                    name="cog"
+                    name="medical-bag"
                     size={size}
                     color={color}
                   />
                 );
-              },
+              }
+            }}
+          />
+          <Tab.Screen
+            name="Information"
+            component={Information}
+            options={{
+              tabBarLabel: 'Information',
+              tabBarIcon: ({ color, size }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="information-outline"
+                    size={size}
+                    color={color}
+                  />
+                );
+              }
             }}
           />
         </Tab.Navigator>

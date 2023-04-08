@@ -1,52 +1,55 @@
-import { StyleSheet, View } from "react-native";
-import { Button, Card, Text } from "react-native-paper";
-import { NavigationParams } from "react-navigation";
+import { StyleSheet, View } from 'react-native';
+import { Card, Text } from 'react-native-paper';
 
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 type HomeOptionProps = {
-  name: string;
+  title: string;
   icon: string;
   onPress: () => void;
 };
 
-const HOME_OPTIONS = [
+const ROUTES = [
   {
-    name: "Emergency Contact",
-    icon: "contacts-outline",
+    title: 'Emergency Contacts',
+    name: 'Contacts',
+    icon: 'contacts-outline'
   },
   {
-    name: "Evacuation Center",
-    icon: "exit-run",
+    title: 'Evacuation Centers',
+    name: 'Evacuation',
+    icon: 'exit-run'
   },
   {
-    name: "First Aid",
-    icon: "medical-bag",
+    title: 'First Aid',
+    name: 'First Aid',
+    icon: 'medical-bag'
   },
   {
-    name: "Information Assistance",
-    icon: "information-outline",
-  },
+    title: 'Information Assistance',
+    name: 'Information',
+    icon: 'information-outline'
+  }
 ];
 
 function createHomeOption(props: HomeOptionProps) {
   return (
-    <Card style={styles.card} onPress={props.onPress} key={props.name}>
+    <Card style={styles.card} onPress={props.onPress} key={props.title}>
       <Card.Content>
         <View style={styles.cardContent}>
           <MaterialCommunityIcons
-            name={props.icon as "material-design"}
+            name={props.icon as 'material-design'}
             size={48}
             color="white"
           />
           <Text
             style={{
-              color: "white",
-              fontWeight: "500",
-              fontSize: 16,
+              color: 'white',
+              fontWeight: '500',
+              fontSize: 16
             }}
           >
-            {props.name}
+            {props.title}
           </Text>
         </View>
       </Card.Content>
@@ -55,10 +58,10 @@ function createHomeOption(props: HomeOptionProps) {
 }
 
 export default function Home({ navigation }: any) {
-  const homeOptionsComponents = HOME_OPTIONS.map((option) =>
+  const homeOptionsComponents = ROUTES.map((option) =>
     createHomeOption({
       ...option,
-      onPress: () => navigation.jumpTo(option.name),
+      onPress: () => navigation.jumpTo(option.name)
     })
   );
 
@@ -67,21 +70,21 @@ export default function Home({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
   card: {
     margin: 24,
     marginBottom: 0,
-    backgroundColor: "#C0C4FF",
+    backgroundColor: '#C0C4FF'
   },
   cardContent: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     gap: 10,
-    padding: 10,
-  },
+    padding: 10
+  }
 });
