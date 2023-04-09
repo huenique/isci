@@ -6,17 +6,23 @@ type NavigationBarProps = {
   navigation: any;
   route: any;
   options: any;
-  back: boolean;
 };
 
 export default function NavigationBar(props: NavigationBarProps) {
   const title = getHeaderTitle(props.options, props.route.name);
+
   return (
-    <Appbar.Header>
-      {props.back && (
-        <Appbar.BackAction onPress={() => props.navigation.goBack()} />
-      )}
-      <Appbar.Content title={title} />
+    <Appbar.Header
+      style={{
+        backgroundColor: '#C0C4FF'
+      }}
+    >
+      <Appbar.Content
+        title={title}
+        titleStyle={{
+          color: '#ffffff'
+        }}
+      />
     </Appbar.Header>
   );
 }
