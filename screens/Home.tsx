@@ -1,40 +1,43 @@
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Card, Text } from 'react-native-paper';
+import { Card, Text, useTheme } from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 type HomeOptionProps = {
-  title: string;
+  name: string;
   icon: string;
   onPress: () => void;
 };
 
 const ROUTES = [
   {
-    title: 'Emergency Contacts',
-    name: 'Contacts',
+    name: 'Emergency Contacts',
     icon: 'contacts-outline'
   },
   {
-    title: 'Evacuation Centers',
-    name: 'Evacuation',
+    name: 'Evacuation Center',
     icon: 'exit-run'
   },
   {
-    title: 'First Aid',
     name: 'First Aid',
     icon: 'medical-bag'
   },
   {
-    title: 'Information Assistance',
-    name: 'Information',
+    name: 'Information Assistance',
     icon: 'information-outline'
   }
 ];
 
 function createHomeOption(props: HomeOptionProps) {
+  const theme = useTheme();
+
   return (
-    <Card style={styles.card} onPress={props.onPress} key={props.title}>
+    <Card
+      style={{ ...styles.card, backgroundColor: theme.colors.primary }}
+      onPress={props.onPress}
+      key={props.name}
+    >
       <Card.Content>
         <View style={styles.cardContent}>
           <MaterialCommunityIcons
@@ -42,14 +45,8 @@ function createHomeOption(props: HomeOptionProps) {
             size={48}
             color="white"
           />
-          <Text
-            style={{
-              color: 'white',
-              fontWeight: '500',
-              fontSize: 16
-            }}
-          >
-            {props.title}
+          <Text style={styles.cardTitle} variant="titleMedium">
+            {props.name}
           </Text>
         </View>
       </Card.Content>
@@ -76,8 +73,10 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 24,
-    marginBottom: 0,
-    backgroundColor: '#C0C4FF'
+    marginBottom: 0
+  },
+  cardTitle: {
+    color: 'white'
   },
   cardContent: {
     display: 'flex',

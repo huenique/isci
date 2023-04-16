@@ -1,5 +1,5 @@
 import * as Location from 'expo-location';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import { ActivityIndicator } from 'react-native-paper';
@@ -35,7 +35,7 @@ const CRITICAL_FACILITIES = [
   }
 ];
 
-export default function Evacuation() {
+export default function EvacuationCenter() {
   const ref = React.useRef(
     new MapView({
       initialRegion: CHURCH

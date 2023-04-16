@@ -1,29 +1,34 @@
-import React from 'react';
-import { BottomNavigation } from 'react-native-paper';
+import * as React from 'react';
+import { BottomNavigation, useTheme } from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions, NavigationContainer } from '@react-navigation/native';
 
-import FirstAid from './FirsAid';
-import Home from './Home';
-import Information from './Information';
-import Evacuation from './Evacuation';
-import Contacts from './Contacts';
 import NavigationBar from '../components/NavigationBar';
+import EmergencyContacts from './EmergencyContacts';
+import EvacuationCenter from './EvacuationCenter';
+import FirstAid from './FirstAid';
+import Home from './Home';
+import InformationAssistance from './InformationAssistance';
 
 const Tab = createBottomTabNavigator();
 
 export default function AppContainer() {
+  const theme = useTheme();
+
   return (
     <NavigationContainer>
       <Tab.Navigator
+        backBehavior="history"
         screenOptions={{
           header: (props) => <NavigationBar {...props} />
         }}
         initialRouteName="Home"
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
+            shifting={true}
+            theme={{ colors: { secondaryContainer: theme.colors.primary } }}
             navigationState={state}
             safeAreaInsets={insets}
             onTabPress={({ route, preventDefault }) => {
@@ -56,8 +61,8 @@ export default function AppContainer() {
                 options.tabBarLabel !== undefined
                   ? options.tabBarLabel
                   : options.title !== undefined
-                  ? options.title
-                  : route.title;
+                    ? options.title
+                    : route.title;
 
               return label;
             }}
@@ -68,8 +73,8 @@ export default function AppContainer() {
         )}
       >
         <Tab.Screen
-          name="Contacts"
-          component={Contacts}
+          name="Emergency Contacts"
+          component={EmergencyContacts}
           options={{
             tabBarLabel: 'Contacts',
             tabBarIcon: ({ color, size }) => {
@@ -84,8 +89,8 @@ export default function AppContainer() {
           }}
         />
         <Tab.Screen
-          name="Evacuation"
-          component={Evacuation}
+          name="Evacuation Center"
+          component={EvacuationCenter}
           options={{
             tabBarLabel: 'Evacuation',
             tabBarIcon: ({ color, size }) => {
@@ -128,8 +133,8 @@ export default function AppContainer() {
           }}
         />
         <Tab.Screen
-          name="Information"
-          component={Information}
+          name="Information Assistance"
+          component={InformationAssistance}
           options={{
             tabBarLabel: 'Information',
             tabBarIcon: ({ color, size }) => {
