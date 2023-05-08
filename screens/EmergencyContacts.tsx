@@ -1,6 +1,15 @@
+import * as Linking from 'expo-linking';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Dialog, List, Portal, Provider, Text, useTheme } from 'react-native-paper';
+import {
+  Button,
+  Dialog,
+  List,
+  Portal,
+  Provider,
+  Text,
+  useTheme
+} from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
@@ -14,39 +23,39 @@ const CONTACTS: {
   icon: string;
   contact: Contact;
 }[] = [
-    {
-      name: 'National Emergency Hotline',
-      icon: 'car-emergency',
-      contact: {
-        cellphone: '911',
-        telephone: null
-      }
-    },
-    {
-      name: 'Tayabas City Disaster Risk Reduction and Management Office',
-      icon: 'office-building',
-      contact: {
-        cellphone: '0917 839 8483',
-        telephone: '713-2008'
-      }
-    },
-    {
-      name: 'Tayabas City Police Station',
-      icon: 'police-badge',
-      contact: {
-        cellphone: null,
-        telephone: '793-3166'
-      }
-    },
-    {
-      name: 'Tayabas City Fire Station',
-      icon: 'fire-truck',
-      contact: {
-        cellphone: '0932 140 2709',
-        telephone: '793-3160'
-      }
+  {
+    name: 'National Emergency Hotline',
+    icon: 'car-emergency',
+    contact: {
+      cellphone: '911',
+      telephone: null
     }
-  ];
+  },
+  {
+    name: 'Tayabas City Disaster Risk Reduction and Management Office',
+    icon: 'office-building',
+    contact: {
+      cellphone: '0917 839 8483',
+      telephone: '713-2008'
+    }
+  },
+  {
+    name: 'Tayabas City Police Station',
+    icon: 'police-badge',
+    contact: {
+      cellphone: null,
+      telephone: '793-3166'
+    }
+  },
+  {
+    name: 'Tayabas City Fire Station',
+    icon: 'fire-truck',
+    contact: {
+      cellphone: '0932 140 2709',
+      telephone: '793-3160'
+    }
+  }
+];
 
 export default function EmergencyContacts() {
   const theme = useTheme();
@@ -63,12 +72,18 @@ export default function EmergencyContacts() {
 
   const hideDialog = () => setVisible(false);
 
+  const callNumber = () => Linking.openURL(`tel:${dialogContent.cellphone}`);
+
   const contacts = CONTACTS.map((contact) => (
     <List.Item
       key={contact.name}
-      title={contact.name}
-      left={(props) => <List.Icon {...props} icon={contact.icon} />}
-      right={(props) => <List.Icon {...props} icon="chevron-right" />}
+      title={<Text style={{ color: '#000000' }}>{contact.name}</Text>}
+      left={(props) => (
+        <List.Icon {...props} icon={contact.icon} color="#000000" />
+      )}
+      right={(props) => (
+        <List.Icon {...props} icon="chevron-right" color="#000000" />
+      )}
       onPress={() => showDialog(contact.contact)}
       style={styles.listItem}
     />
@@ -98,35 +113,35 @@ export default function EmergencyContacts() {
                     {dialogContent.cellphone}
                   </Text>
                 </View>
-              ) : (
-                <></>
-              )}
+              ) : null}
               {dialogContent.telephone ? (
                 <View style={styles.dialogContentItem}>
                   <MaterialCommunityIcons
                     name={'phone-classic' as 'material-design'}
                     size={32}
-                    color={theme.colors.backdrop}
+                    color="rgba(0, 0, 0, 0.502)"
                   />
                   <Text
-                    style={{ color: theme.colors.backdrop }}
+                    style={{ color: 'rgba(0, 0, 0, 0.502)' }}
                     variant="bodyLarge"
                   >
                     {dialogContent.telephone}
                   </Text>
                 </View>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </Dialog.Content>
             <Dialog.Actions>
-              <Button textColor="black" onPress={hideDialog}>
+              <Button textColor="#000000" onPress={hideDialog}>
                 Cancel
               </Button>
               <Button
-                textColor={dialogContent.cellphone ? theme.colors.primary : ''}
+                textColor={
+                  dialogContent.cellphone
+                    ? theme.colors.primary
+                    : 'rgba(0, 0, 0, 0.502)'
+                }
                 disabled={!dialogContent.cellphone}
-                onPress={hideDialog}
+                onPress={callNumber}
               >
                 Call
               </Button>
@@ -145,8 +160,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   listItem: {
-    marginVertical: 2,
-    height: 64
+    height: 64,
+    marginBottom: 2
   },
   dialogContent: {
     display: 'flex',
@@ -158,8 +173,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10
-  },
-  disabled: {
-    color: 'hsla(0, 0%, 62%, 0.5)'
   }
 });

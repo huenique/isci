@@ -113,8 +113,10 @@ export default function FirstAid() {
             </Text>
           </View>
         </View>
-        <ScrollView style={styles.injuryList}>
-          {injury ? getSteps(injury.treatment) : <></>}
+        <ScrollView horizontal={true}>
+          <ScrollView style={styles.injuryList}>
+            {injury ? getSteps(injury.treatment) : null}
+          </ScrollView>
         </ScrollView>
       </Modal>
     </Portal>
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '100%',
-    backgroundColor: '#C0C4FF',
+    backgroundColor: '#9384D1',
     padding: 10,
     borderTopEndRadius: 10,
     borderTopStartRadius: 10
@@ -216,7 +218,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 32,
-    backgroundColor: '#C0C4FF',
+    backgroundColor: '#9384D1',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'

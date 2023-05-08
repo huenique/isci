@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Appbar, useTheme } from 'react-native-paper';
 
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
@@ -13,12 +14,15 @@ export default function NavigationBar(props: BottomTabHeaderProps) {
         backgroundColor: theme.colors.primary
       }}
     >
-      <Appbar.BackAction
-        onPress={() => {
-          props.navigation.goBack();
-        }}
-        iconColor="#ffffff"
-      />
+      {props.route.name !== 'Home' ? (
+        <Appbar.BackAction
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+          iconColor="#ffffff"
+        />
+      ) : null}
+
       <Appbar.Content
         title={title}
         titleStyle={{

@@ -61,13 +61,13 @@ export default function AppContainer() {
                 options.tabBarLabel !== undefined
                   ? options.tabBarLabel
                   : options.title !== undefined
-                    ? options.title
-                    : route.title;
+                  ? options.title
+                  : route.title;
 
               return label;
             }}
             style={{
-              backgroundColor: '#ffffff'
+              backgroundColor: theme.colors.background
             }}
           />
         )}

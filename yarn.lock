@@ -2789,6 +2789,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/qs@npm:^6.9.7":
+  version: 6.9.7
+  resolution: "@types/qs@npm:6.9.7"
+  checksum: 7fd6f9c25053e9b5bb6bc9f9f76c1d89e6c04f7707a7ba0e44cc01f17ef5284adb82f230f542c2d5557d69407c9a40f0f3515e8319afd14e1e16b5543ac6cdba
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:~18.0.27":
   version: 18.0.33
   resolution: "@types/react@npm:18.0.33"
@@ -4816,6 +4823,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-linking@npm:~4.0.1":
+  version: 4.0.1
+  resolution: "expo-linking@npm:4.0.1"
+  dependencies:
+    "@types/qs": ^6.9.7
+    expo-constants: ~14.2.0
+    invariant: ^2.2.4
+    qs: ^6.11.0
+    url-parse: ^1.5.9
+  checksum: 631656c9cad78c345b35b7decd8c2bc22014b867321fcbb0c740b15001a492080ee3be26d27a89587eb2736223c82a39c600950930cf44b6dd95d37acb7e1527
+  languageName: node
+  linkType: hard
+
 "expo-location@npm:~15.1.1":
   version: 15.1.1
   resolution: "expo-location@npm:15.1.1"
@@ -6117,12 +6137,13 @@ __metadata:
     "@react-navigation/stack": ^6.3.16
     "@types/react": ~18.0.27
     expo: ~48.0.10
+    expo-linking: ~4.0.1
     expo-location: ~15.1.1
     expo-router: ^1.5.2
     expo-status-bar: ~1.4.4
     prettier: ^2.8.7
     react: 18.2.0
-    react-native: 0.71.6
+    react-native: 0.71.7
     react-native-gesture-handler: ^2.9.0
     react-native-maps: 1.3.2
     react-native-maps-directions: ^1.9.0
@@ -8197,7 +8218,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.3":
+"qs@npm:^6.10.3, qs@npm:^6.11.0":
   version: 6.11.1
   resolution: "qs@npm:6.11.1"
   dependencies:
@@ -8468,9 +8489,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:0.71.6":
-  version: 0.71.6
-  resolution: "react-native@npm:0.71.6"
+"react-native@npm:0.71.7":
+  version: 0.71.7
+  resolution: "react-native@npm:0.71.7"
   dependencies:
     "@jest/create-cache-key-function": ^29.2.1
     "@react-native-community/cli": 10.2.2
@@ -8510,7 +8531,7 @@ __metadata:
     react: 18.2.0
   bin:
     react-native: cli.js
-  checksum: aadbd9b57dd9b10a41b60337ea1a4103e2fb2320784bf148100e807bd0a77929bdb310ea68d054165cd3c00647a3d020eecb0efb864cc7a93733b2d580e1e675
+  checksum: efd91d5560290b883e0d3d3482cc4657268c2e480171b63a0c6b7dc8f6b1331298feac7d9966e1831d95d9fee893dfa831252052561232843e4982880238f09e
   languageName: node
   linkType: hard
 

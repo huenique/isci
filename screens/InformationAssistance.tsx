@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderWidth: 0,
     borderBottomWidth: 1,
-    borderBottomColor: '#ffffff'
+    borderBottomColor: '#ffffff00'
   }
 });
