@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import { Card, List, Modal, Portal, Text } from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -12,53 +18,102 @@ import InjurySprain from '../assets/injury-sprain.svg';
 
 type Injury = {
   injury: string;
-  treatment: string[];
+  treatment: Treatment[];
+  icon: any;
 };
 
-const FIRST_AID_DATA = [
+type Treatment = {
+  instruction: string;
+  visual?: any;
+};
+
+const FIRST_AID_DATA: Injury[] = [
   {
     injury: 'Burns',
     treatment: [
-      'Cool the burn with cool water for 10 minutes',
-      'Cover the burn with a sterile bandage',
-      'Seek medical attention'
+      {
+        instruction: 'Cool the burn with cool water for 10 minutes',
+        visual: require('../assets/firstaid-visuals/burns_1.jpeg')
+      },
+      {
+        instruction: 'Cover the burn with a sterile bandage',
+        visual: require('../assets/firstaid-visuals/burns_2.jpeg')
+      },
+      {
+        instruction: 'Seek medical attention'
+      }
     ],
     icon: <InjuryBurn width={64} height={64} />
   },
   {
     injury: 'Sprains and Strains',
     treatment: [
-      'Rest the injured area',
-      'Apply ice to the injured area',
-      'Seek medical attention'
+      {
+        instruction: 'Rest the injured area',
+        visual: require('../assets/firstaid-visuals/sprain_1.jpeg')
+      },
+      {
+        instruction: 'Apply ice to the injured area',
+        visual: require('../assets/firstaid-visuals/sprain_2.jpeg')
+      },
+      {
+        instruction: 'Seek medical attention'
+      }
     ],
     icon: <InjurySprain width={64} height={64} />
   },
   {
     injury: 'Bruises',
     treatment: [
-      'Apply ice to the injured area',
-      'Apply a compression bandage',
-      'Seek medical attention'
+      {
+        instruction: 'Apply ice to the injured area',
+        visual: require('../assets/firstaid-visuals/bruise_1.jpeg')
+      },
+      {
+        instruction: 'Apply a compression bandage',
+        visual: require('../assets/firstaid-visuals/bruise_2.jpeg')
+      },
+      {
+        instruction: 'Seek medical attention'
+      }
     ],
     icon: <InjuryMinor width={64} height={64} />
   },
   {
     injury: 'Cuts and Abrasions',
     treatment: [
-      'Clean the wound with soap and water',
-      'Apply an antibiotic ointment',
-      'Cover the wound with a sterile bandage',
-      'Seek medical attention'
+      {
+        instruction: 'Clean the wound with soap and water',
+        visual: require('../assets/firstaid-visuals/cuts_1.jpeg')
+      },
+      {
+        instruction: 'Apply an antibiotic ointment',
+        visual: require('../assets/firstaid-visuals/cuts_2.jpeg')
+      },
+      {
+        instruction: 'Cover the wound with a sterile bandage',
+        visual: require('../assets/firstaid-visuals/cuts_3.jpeg')
+      },
+      {
+        instruction: 'Seek medical attention'
+      }
     ],
     icon: <InjuryCut width={64} height={64} />
   },
   {
     injury: 'Broken Bones',
     treatment: [
-      'Keep the affected limb still and immobilized',
-      'Apply ice to the injured area',
-      'Seek medical attention'
+      {
+        instruction: 'Keep the affected limb still and immobilized',
+        visual: require('../assets/firstaid-visuals/bone_1.jpeg')
+      },
+      {
+        instruction: 'Apply ice to the injured area',
+        visual: require('../assets/firstaid-visuals/bone_2.jpeg')
+      },
+      {
+        instruction: 'Seek medical attention'
+      }
     ],
     icon: <InjuryBroken width={64} height={64} />
   }
@@ -75,18 +130,59 @@ export default function FirstAid() {
 
   const hideModal = () => setVisible(false);
 
-  const getSteps = (injuryTreatment: string[]) =>
+  const getSteps = (injuryTreatment: Treatment[]) =>
     injuryTreatment.map((step, index) => {
       return (
-        <View style={styles.stepContainer} key={index}>
-          <View style={styles.step}>
-            <View style={styles.stepEclipseParent}>
-              <View style={styles.stepEclipseChild}>
-                <Text style={styles.textCommon}>{index + 1}</Text>
+        <View
+          style={{
+            marginBottom: 10
+          }}
+          key={index}
+        >
+          <View style={styles.stepContainer}>
+            <View style={styles.step}>
+              <View style={styles.stepEclipseParent}>
+                <View style={styles.stepEclipseChild}>
+                  <Text style={styles.textCommon}>{index + 1}</Text>
+                </View>
               </View>
             </View>
+            <Text
+              style={{
+                maxWidth: '100%'
+              }}
+            >
+              {step.instruction}
+            </Text>
           </View>
-          <Text>{step}</Text>
+          <View
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            {step.visual && (
+              <View
+                style={{
+                  width: 300,
+                  height: 300,
+                  margin: 10
+                }}
+                key={index + 1}
+              >
+                <Image
+                  source={step.visual}
+                  resizeMethod="scale"
+                  resizeMode="contain"
+                  style={{
+                    width: '100%',
+                    height: '100%'
+                  }}
+                />
+              </View>
+            )}
+          </View>
         </View>
       );
     });
@@ -101,7 +197,7 @@ export default function FirstAid() {
         <View style={styles.modalContent}>
           <View style={styles.modalHeaderAction}>
             <TouchableOpacity onPress={hideModal}>
-              <MaterialCommunityIcons name="close" size={24} color="#ffffff" />
+              <MaterialCommunityIcons name="close" size={32} color="#ffffff" />
             </TouchableOpacity>
           </View>
           <View style={styles.modalHeaderContainer}>
@@ -113,10 +209,8 @@ export default function FirstAid() {
             </Text>
           </View>
         </View>
-        <ScrollView horizontal={true}>
-          <ScrollView style={styles.injuryList}>
-            {injury ? getSteps(injury.treatment) : null}
-          </ScrollView>
+        <ScrollView style={styles.injuryList}>
+          {injury ? getSteps(injury.treatment) : null}
         </ScrollView>
       </Modal>
     </Portal>
@@ -156,15 +250,13 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: '#ffffff',
-    margin: 10,
-    borderRadius: 10
+    height: '100%',
+    maxHeight: '100%'
   },
   modalContent: {
     width: '100%',
     backgroundColor: '#9384D1',
-    padding: 10,
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10
+    padding: 10
   },
   modalHeaderAction: {
     width: '100%',
@@ -196,9 +288,8 @@ const styles = StyleSheet.create({
   },
   stepContainer: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 10
+    marginBottom: 10
   },
   step: {
     width: 48,

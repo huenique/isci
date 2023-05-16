@@ -27,6 +27,10 @@ export default function AppContainer() {
         initialRouteName="Home"
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
+            animationEasing={
+              // easing function from Easing
+              Easing.elastic(1)
+            }
             shifting={true}
             theme={{ colors: { secondaryContainer: theme.colors.primary } }}
             navigationState={state}

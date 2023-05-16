@@ -24,7 +24,8 @@ export default function DisasterInfo(props: Disaster) {
           <Text
             variant="titleMedium"
             style={{
-              margin: 16
+              margin: 16,
+              marginBottom: 0
             }}
           >
             {props.disaster}
