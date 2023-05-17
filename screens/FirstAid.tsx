@@ -9,6 +9,7 @@ import InjuryBurn from '../assets/injury-burn.svg';
 import InjuryCut from '../assets/injury-cut.svg';
 import InjuryMinor from '../assets/injury-minor.svg';
 import InjurySprain from '../assets/injury-sprain.svg';
+import FloatingCloseBtn from '../components/FloatingCloseBtn';
 
 type Injury = {
   injury: string;
@@ -116,6 +117,20 @@ const FIRST_AID_DATA: Injury[] = [
 export default function FirstAid() {
   const [visible, setVisible] = React.useState(false);
   const [injury, setInjury] = React.useState<Injury | null>(null);
+  const [isScrollAtEnd, setIsScrollAtEnd] = React.useState(false);
+
+  const handleScroll = (event: {
+    nativeEvent: {
+      layoutMeasurement: any;
+      contentOffset: any;
+      contentSize: any;
+    };
+  }) => {
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+    const isAtEnd =
+      layoutMeasurement.height + contentOffset.y >= contentSize.height;
+    setIsScrollAtEnd(isAtEnd);
+  };
 
   const showModal = (injury: Injury) => {
     setVisible(true);
@@ -129,53 +144,58 @@ export default function FirstAid() {
       return (
         <View
           style={{
-            marginBottom: 10
+            marginBottom: 16
           }}
           key={index}
         >
-          <View style={styles.stepContainer}>
-            <View style={styles.step}>
-              <View style={styles.stepEclipseParent}>
-                <View style={styles.stepEclipseChild}>
-                  <Text style={styles.textCommon}>{index + 1}</Text>
+          <View>
+            <View style={styles.stepContainer}>
+              <View style={styles.step}>
+                <View style={styles.stepEclipseParent}>
+                  <View style={styles.stepEclipseChild}>
+                    <Text style={styles.textCommon}>{index + 1}</Text>
+                  </View>
                 </View>
               </View>
+              <Text
+                style={{
+                  maxWidth: '100%'
+                }}
+              >
+                {step.instruction}
+              </Text>
             </View>
-            <Text
+            <View
               style={{
-                maxWidth: '100%'
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
-              {step.instruction}
-            </Text>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center'
-            }}
-          >
-            {step.visual && (
-              <View
-                style={{
-                  width: 300,
-                  height: 300,
-                  margin: 10
-                }}
-                key={index + 1}
-              >
-                <Image
-                  source={step.visual}
-                  resizeMethod="scale"
-                  resizeMode="contain"
+              {step.visual && (
+                <View
                   style={{
-                    width: '100%',
-                    height: '100%'
+                    width: 300,
+                    height: 300,
+                    margin: 10
                   }}
-                />
-              </View>
-            )}
+                  key={index + 1}
+                >
+                  <Image
+                    source={step.visual}
+                    resizeMethod="scale"
+                    resizeMode="contain"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: 10,
+                      borderWidth: 1,
+                      borderColor: '#000000'
+                    }}
+                  />
+                </View>
+              )}
+            </View>
           </View>
         </View>
       );
@@ -189,22 +209,35 @@ export default function FirstAid() {
         contentContainerStyle={styles.modal}
       >
         <View style={styles.modalContent}>
-          <View style={styles.modalHeaderAction}>
-            <TouchableOpacity onPress={hideModal}>
-              <MaterialCommunityIcons name="close" size={32} color="#ffffff" />
-            </TouchableOpacity>
-          </View>
           <View style={styles.modalHeaderContainer}>
-            <Text style={styles.textCommon} variant="titleLarge">
-              {injury?.injury}
-            </Text>
-            <Text style={styles.modaSubheader} variant="bodyLarge">
-              First aid tips:
-            </Text>
+            <View>
+              <Text style={styles.textCommon} variant="titleLarge">
+                {injury?.injury}
+              </Text>
+              <Text style={styles.modaSubheader} variant="bodyLarge">
+                First aid tips:
+              </Text>
+            </View>
+            <View style={styles.modalHeaderAction}>
+              <TouchableOpacity onPress={hideModal}>
+                <MaterialCommunityIcons
+                  name="close"
+                  size={32}
+                  color="#ffffff"
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-        <ScrollView style={styles.injuryList}>
-          {injury ? getSteps(injury.treatment) : null}
+        <ScrollView style={styles.injuryList} onScroll={handleScroll}>
+          <View
+            style={{
+              marginBottom: '40%'
+            }}
+          >
+            {injury ? getSteps(injury.treatment) : null}
+          </View>
+          <FloatingCloseBtn onPress={hideModal} visible={isScrollAtEnd} />
         </ScrollView>
       </Modal>
     </Portal>
@@ -253,14 +286,15 @@ const styles = StyleSheet.create({
     padding: 10
   },
   modalHeaderAction: {
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginBottom: 10
+    alignItems: 'center'
   },
   modalHeaderContainer: {
-    padding: 10
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   textCommon: {
     color: '#ffffff',

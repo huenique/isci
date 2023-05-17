@@ -91,25 +91,32 @@ export default function InformationAssistance() {
               }
             />
             <Card.Content>
-              <Text
+              <View
                 style={{
-                  textAlign: 'justify'
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 10
                 }}
               >
-                {item.info}
-              </Text>
-              <Button
-                mode="contained-tonal"
-                style={{
-                  marginTop: 10
-                }}
-                onPress={() => {
-                  setShownDisaster(item);
-                  toggleShowMore();
-                }}
-              >
-                Learn More
-              </Button>
+                <Text
+                  style={{
+                    textAlign: 'justify'
+                  }}
+                >
+                  {item.info}
+                </Text>
+                <Button
+                  buttonColor="#9F9FB7"
+                  textColor="#ffffff"
+                  mode="contained-tonal"
+                  onPress={() => {
+                    setShownDisaster(item);
+                    toggleShowMore();
+                  }}
+                >
+                  Learn More
+                </Button>
+              </View>
             </Card.Content>
           </Card>
         ))}

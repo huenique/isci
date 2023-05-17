@@ -45,7 +45,10 @@ export default function DisasterInfo(props: Disaster) {
           title="Preparedness"
           id={2}
           style={{
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            // border top
+            borderTopWidth: 1,
+            borderTopColor: '#9F9FB7'
           }}
         >
           <ScrollView
