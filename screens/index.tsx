@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Easing } from 'react-native';
 import { BottomNavigation, useTheme } from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -28,7 +29,6 @@ export default function AppContainer() {
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
             animationEasing={
-              // easing function from Easing
               Easing.elastic(1)
             }
             shifting={true}
