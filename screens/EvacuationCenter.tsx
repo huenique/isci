@@ -2,7 +2,13 @@ import * as Location from 'expo-location';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
-import { IconButton, MD3Colors, Text, useTheme } from 'react-native-paper';
+import {
+  IconButton,
+  MD3Colors,
+  Portal,
+  Text,
+  useTheme
+} from 'react-native-paper';
 
 // import MapViewDirections from 'react-native-maps-directions';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -47,16 +53,6 @@ export default function EvacuationCenter() {
   const [destination, setDestination] = React.useState<Region | null>(null);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-    })();
-  }, []);
-
   const getUserLocation = async () => {
     const location = await Location.getCurrentPositionAsync({});
     const loc = {
@@ -78,6 +74,16 @@ export default function EvacuationCenter() {
     });
     ref.current.animateToRegion(loc, 1000);
   };
+
+  useMountEffectOnce(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+    })();
+  });
 
   if (errorMsg) {
     return (
@@ -133,7 +139,7 @@ export default function EvacuationCenter() {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%'
+    flex: 1
   },
   map: {
     width: '100%',

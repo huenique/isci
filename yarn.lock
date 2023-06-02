@@ -4814,12 +4814,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-image@npm:~1.0.0":
-  version: 1.0.0
-  resolution: "expo-image@npm:1.0.0"
+"expo-image@npm:~1.0.1":
+  version: 1.0.1
+  resolution: "expo-image@npm:1.0.1"
   peerDependencies:
     expo: "*"
-  checksum: 203e8b3e2528f40855be9c1f7cb038ae1b84f05770424cecc7bd39ec785aca2879e7ea80b70d5550dd9470f62da7a1560fab592efaec3189c6646765e311905d
+  checksum: 4370c442df51dda577e2e1a5daf67267d9336fd89afb2b8ee6b0f74b4fdffd9a3b71a5f5580583310d1a71610eabba9ec40d5cf007a01ac6d8a6200ac8ee6a21
   languageName: node
   linkType: hard
 
@@ -6147,7 +6147,7 @@ __metadata:
     "@types/react": ~18.0.27
     expo: ~48.0.10
     expo-asset: ~8.9.1
-    expo-image: ~1.0.0
+    expo-image: ~1.0.1
     expo-linking: ~4.0.1
     expo-location: ~15.1.1
     expo-router: ^1.5.2
