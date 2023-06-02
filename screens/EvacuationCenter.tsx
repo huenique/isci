@@ -47,7 +47,7 @@ export default function EvacuationCenter() {
   const [destination, setDestination] = React.useState<Region | null>(null);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
+  useMountEffectOnce(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -55,7 +55,7 @@ export default function EvacuationCenter() {
         return;
       }
     })();
-  }, []);
+  });
 
   const getUserLocation = async () => {
     const location = await Location.getCurrentPositionAsync({});
@@ -78,10 +78,6 @@ export default function EvacuationCenter() {
     });
     ref.current.animateToRegion(loc, 1000);
   };
-
-  useMountEffectOnce(() => {
-    getUserLocation();
-  });
 
   if (errorMsg) {
     return (
