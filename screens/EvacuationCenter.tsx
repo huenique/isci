@@ -79,10 +79,6 @@ export default function EvacuationCenter() {
     ref.current.animateToRegion(loc, 1000);
   };
 
-  useMountEffectOnce(() => {
-    getUserLocation();
-  });
-
   if (errorMsg) {
     return (
       <View style={styles.container}>
