@@ -5,6 +5,7 @@ import { BottomNavigation, useTheme } from 'react-native-paper';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CommonActions, NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import NavigationBar from '../components/NavigationBar';
 import EmergencyContacts from './EmergencyContacts';
@@ -13,7 +14,6 @@ import FirstAid from './FirstAid';
 import Home from './Home';
 import InformationAssistance from './InformationAssistance';
 import UserAccount from './UserAccount';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

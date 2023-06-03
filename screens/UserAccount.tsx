@@ -1,22 +1,23 @@
+import * as ImagePicker from 'expo-image-picker';
+import * as SQLite from 'expo-sqlite';
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
   Avatar,
-  TextInput,
+  Button,
+  Modal,
+  Portal,
+  Provider,
   RadioButton,
   Text,
-  Button,
-  Portal,
-  Modal,
-  Provider
+  TextInput
 } from 'react-native-paper';
 import {
+  DatePickerModal,
   en,
-  registerTranslation,
-  DatePickerModal
+  registerTranslation
 } from 'react-native-paper-dates';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import * as SQLite from 'expo-sqlite';
 
 registerTranslation('en', en);
 
@@ -30,19 +31,46 @@ export default function UserAccount() {
   const [sex, setSex] = React.useState('male');
   const [birthdate, setBirthdate] = React.useState(null);
   const [isCalendarVisible, setIsCalendarVisible] = React.useState(false);
+  const [avatarUri, setAvatarUri] = React.useState<string | null>(null);
+
+  const errCallback = (err: any) => {
+    console.log('Error:', err);
+  };
+
+  const successCallback = () => {
+    console.log('Success');
+  };
+
+  const handleSelectImage = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      console.log('Permission to access the media library is required');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (!pickerResult.canceled && pickerResult.assets) {
+      setAvatarUri(pickerResult.assets[0].uri);
+    }
+  };
 
   const handleSave = () => {
-    db.transaction((tx: any) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, barangay TEXT, street TEXT, contactNumber TEXT, sex TEXT, birthdate TEXT);'
-      );
-      tx.executeSql(
-        'INSERT INTO users (name, barangay, street, contactNumber, sex, birthdate) VALUES (?, ?, ?, ?, ?, ?);',
-        [name, barangay, street, contactNumber, sex, birthdate],
-        () => console.log('User saved to database'),
-        (error: any) => console.log('Error saving user to database:', error)
-      );
-    });
+    db.transaction(
+      (tx: any) => {
+        tx.executeSql('DELETE FROM users;');
+        tx.executeSql(
+          'INSERT INTO users (1, name, barangay, street, contactNumber, sex, birthdate) VALUES (?, ?, ?, ?, ?, ?);',
+          [name, barangay, street, contactNumber, sex, birthdate],
+          () => console.log('User saved to database'),
+          (error: any) => console.log('Error saving user to database:', error)
+        );
+      },
+      errCallback,
+      successCallback
+    );
   };
 
   const handleToggleCalendar = () => {
@@ -54,11 +82,43 @@ export default function UserAccount() {
     setBirthdate(date);
   };
 
+  React.useEffect(() => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(
+          'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, barangay TEXT, street TEXT, contactNumber TEXT, sex TEXT, birthdate TEXT);'
+        );
+        tx.executeSql('SELECT * FROM users LIMIT 1;', [], (_, { rows }) => {
+          const user = rows.item(0);
+          console.log('User:', user);
+
+          if (user) {
+            setName(user.name);
+            setBarangay(user.barangay);
+            setStreet(user.street);
+            setContactNumber(user.contactNumber);
+            setSex(user.sex);
+            setBirthdate(user.birthdate);
+          }
+        });
+      },
+      errCallback,
+      successCallback
+    );
+  }, []);
+
   return (
     <Provider>
       <SafeAreaProvider>
         <View style={styles.container}>
-          <Avatar.Image size={80} source={require('../assets/avatar.png')} />
+          <TouchableOpacity onPress={handleSelectImage}>
+            <Avatar.Image
+              size={80}
+              source={
+                avatarUri ? { uri: avatarUri } : require('../assets/avatar.png')
+              }
+            />
+          </TouchableOpacity>
           <TextInput
             label="Name"
             value={name}
