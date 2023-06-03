@@ -29,6 +29,13 @@ export default function NavigationBar(props: BottomTabHeaderProps) {
           color: '#ffffff'
         }}
       />
+      <Appbar.Action
+        icon="account"
+        color="white"
+        onPress={() => {
+          props.navigation.navigate('Account');
+        }}
+      />
     </Appbar.Header>
   );
 }
