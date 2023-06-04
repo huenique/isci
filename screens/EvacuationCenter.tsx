@@ -2,7 +2,13 @@ import * as Location from 'expo-location';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
-import { IconButton, MD3Colors, Portal, Text, useTheme } from 'react-native-paper';
+import {
+  IconButton,
+  MD3Colors,
+  Portal,
+  Text,
+  useTheme
+} from 'react-native-paper';
 
 // import MapViewDirections from 'react-native-maps-directions';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
