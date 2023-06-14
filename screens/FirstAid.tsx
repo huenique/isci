@@ -1,6 +1,20 @@
 import * as React from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Card, Divider, List, Modal, Paragraph, Portal, Text } from 'react-native-paper';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import {
+  Card,
+  Divider,
+  List,
+  Modal,
+  Paragraph,
+  Portal,
+  Text
+} from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
@@ -137,7 +151,7 @@ const FIRST_AID_BANDAGES: Bandage[] = [
     name: 'Triangular Bandage',
     visual: require('../assets/bandages-visuals/triangular.png'),
     intro:
-      'The most common materials for a triangle bandage, additionally referred to as a triangular sling, are cotton or muslin fabric. These bandages are extremely effective and adaptable. These can be used to apply the appropriate pressure to a bleeding wound or folded into a sling.',
+      'The most common materials for a triangle bandage, additionally referred to as a triangular sling, are cotton or muslin fabric. These bandages are extremely effective and adaptable.',
     subinfo:
       "The base, the tip, and the ends make up a triangle's three constituent elements.",
     subinfo2: [
@@ -220,7 +234,7 @@ type Tip = {
 
 const FIRST_AID_TIPS: Tip[] = [
   {
-    name: 'Applying a compression wrap for a sprained ankle',
+    name: 'Compression wrap for a sprained ankle',
     visual: require('../assets/tips-visuals/sprained_ankle.png'),
     intro:
       'To reduce swelling and improve the comfort of your ankle, try a compression bandage. It does not support or restrain the ankle, thus other than serving as a warning to be mindful of your ankle, it does not protect it.',
@@ -548,7 +562,12 @@ export default function FirstAid() {
       >
         <Card.Content>
           <View style={{ ...styles.cardContentSection, ...{ height: 24 } }}>
-            <View style={styles.cardIconText}>
+            <View
+              style={{
+                ...styles.cardIconText,
+                ...{ gap: 0, justifyContent: 'space-between' }
+              }}
+            >
               <Text variant="titleMedium">{item.name}</Text>
             </View>
             <List.Icon icon="chevron-right" />
@@ -688,15 +707,13 @@ export default function FirstAid() {
       >
         <Card.Content>
           <View style={{ ...styles.cardContentSection, ...{ height: 48 } }}>
-            <View style={styles.cardIconText}>
-              <Text
-                variant="bodyMedium"
-                numberOfLines={2}
-                ellipsizeMode="tail"
-                style={{
-                  maxWidth: 300
-                }}
-              >
+            <View
+              style={{
+                ...styles.cardIconText,
+                ...{ gap: 0, justifyContent: 'space-between' }
+              }}
+            >
+              <Text variant="bodyMedium" numberOfLines={2} ellipsizeMode="tail">
                 {tip.name}
               </Text>
             </View>
