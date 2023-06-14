@@ -27,7 +27,12 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE"
       ],
-      "package": "com.huenique.isci"
+      "package": "com.huenique.isci",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDFSVtMyF5Yx4BGKiuf2iyzEpF54SYpiZY"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,20 +1,17 @@
 import * as Location from 'expo-location';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { Marker, Region } from 'react-native-maps';
-import {
-  IconButton,
-  MD3Colors,
-  Portal,
-  Text,
-  useTheme
-} from 'react-native-paper';
+import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import { IconButton, MD3Colors, Text, useTheme } from 'react-native-paper';
 
 // import MapViewDirections from 'react-native-maps-directions';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { calculateDistance, getNearest } from '../utils/distance';
 import { useMountEffectOnce } from '../utils/useMountEffectOnce';
+
+const GOOGLE_MAPS_APIKEY = 'AIzaSyDFSVtMyF5Yx4BGKiuf2iyzEpF54SYpiZY';
 
 // Default location: Minor Basilica of St. Michael the Archangel Coordinates
 const CHURCH: Region = {
@@ -96,13 +93,27 @@ export default function EvacuationCenter() {
   let loc = location || CHURCH;
   let des = destination || CHURCH;
 
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      getUserLocation();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* <View style={styles.loaderContainer}>
         <ActivityIndicator animating={true} size={48} />
       </View> */}
 
-      <MapView initialRegion={CHURCH} ref={ref} style={styles.map}>
+      <MapView
+        initialRegion={CHURCH}
+        ref={ref}
+        style={styles.map}
+        zoomEnabled={false}
+        provider={PROVIDER_GOOGLE}
+      >
         <Marker coordinate={loc} flat={true}>
           <MaterialCommunityIcons
             name={'circle-outline' as 'material-design'}
@@ -112,11 +123,11 @@ export default function EvacuationCenter() {
         </Marker>
         <Marker coordinate={des} />
         {/* This requires a Google Maps API key */}
-        {/* <MapViewDirections
-                 origin={location}
-                 destination={criticalFacility}
-                 apikey=""
-               /> */}
+        <MapViewDirections
+          origin={loc}
+          destination={des}
+          apikey={GOOGLE_MAPS_APIKEY}
+        />
       </MapView>
 
       <IconButton

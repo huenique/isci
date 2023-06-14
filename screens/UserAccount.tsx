@@ -3,20 +3,9 @@ import * as SQLite from 'expo-sqlite';
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
-  Avatar,
-  Button,
-  Dialog,
-  Modal,
-  Portal,
-  RadioButton,
-  Text,
-  TextInput
+    Avatar, Button, Dialog, Modal, Portal, RadioButton, Text, TextInput
 } from 'react-native-paper';
-import {
-  DatePickerModal,
-  en,
-  registerTranslation
-} from 'react-native-paper-dates';
+import { DatePickerModal, en, registerTranslation } from 'react-native-paper-dates';
 
 registerTranslation('en', en);
 
