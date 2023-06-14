@@ -409,11 +409,13 @@ export default function FirstAid() {
           >
             <Image
               source={bandage ? bandage.visual : null}
+              resizeMethod="scale"
               resizeMode="contain"
               style={{
                 marginBottom: 10,
-                height: 400,
-                width: 400
+                marginTop: 10,
+                height: 300,
+                width: 300
               }}
             />
           </View>
@@ -481,12 +483,13 @@ export default function FirstAid() {
                       }}
                     >
                       <Image
+                        resizeMethod="scale"
                         resizeMode="contain"
                         style={{
                           marginBottom: 10,
                           marginTop: 10,
-                          height: 400,
-                          width: 400
+                          height: 300,
+                          width: 300
                         }}
                         source={step.visual}
                       />
@@ -563,6 +566,13 @@ export default function FirstAid() {
         }}
       >
         <Card.Content>
+          <Text variant="titleSmall">{tip ? tip.name : null}</Text>
+          <Divider
+            style={{
+              marginBottom: 10,
+              marginTop: 10
+            }}
+          />
           <View
             style={{
               alignItems: 'center'
@@ -570,11 +580,13 @@ export default function FirstAid() {
           >
             <Image
               source={tip ? tip.visual : null}
+              resizeMethod="scale"
               resizeMode="contain"
               style={{
                 marginBottom: 10,
-                height: 400,
-                width: 400
+                marginTop: 10,
+                height: 300,
+                width: 300
               }}
             />
           </View>
@@ -616,12 +628,13 @@ export default function FirstAid() {
                     }}
                   >
                     <Image
+                      resizeMethod="scale"
                       resizeMode="contain"
                       style={{
                         marginBottom: 10,
                         marginTop: 10,
-                        height: 400,
-                        width: 400
+                        height: 300,
+                        width: 300
                       }}
                       source={step.visual}
                     />
@@ -644,11 +657,7 @@ export default function FirstAid() {
       >
         <View style={styles.modalContent}>
           <View style={styles.modalHeaderContainer}>
-            <View>
-              <Text style={styles.textCommon} variant="titleLarge">
-                {tip ? tip.name : null}
-              </Text>
-            </View>
+            <View></View>
             <View style={styles.modalHeaderAction}>
               <TouchableOpacity onPress={() => setTipVisible(false)}>
                 <MaterialCommunityIcons
@@ -680,7 +689,14 @@ export default function FirstAid() {
         <Card.Content>
           <View style={{ ...styles.cardContentSection, ...{ height: 48 } }}>
             <View style={styles.cardIconText}>
-              <Text variant="bodyMedium" numberOfLines={2} ellipsizeMode="tail">
+              <Text
+                variant="bodyMedium"
+                numberOfLines={2}
+                ellipsizeMode="tail"
+                style={{
+                  maxWidth: 300
+                }}
+              >
                 {tip.name}
               </Text>
             </View>
