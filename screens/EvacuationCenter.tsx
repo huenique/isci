@@ -11,8 +11,6 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { calculateDistance, getNearest } from '../utils/distance';
 import { useMountEffectOnce } from '../utils/useMountEffectOnce';
 
-const GOOGLE_MAPS_APIKEY = 'AIzaSyDFSVtMyF5Yx4BGKiuf2iyzEpF54SYpiZY';
-
 // Default location: Minor Basilica of St. Michael the Archangel Coordinates
 const CHURCH: Region = {
   latitude: 14.026038316958063,
@@ -93,13 +91,14 @@ export default function EvacuationCenter() {
   let loc = location || CHURCH;
   let des = destination || CHURCH;
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      getUserLocation();
-    }, 5000);
+  // React.useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     getUserLocation();
+  //     console.log('This will run every second!');
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -123,11 +122,7 @@ export default function EvacuationCenter() {
         </Marker>
         <Marker coordinate={des} />
         {/* This requires a Google Maps API key */}
-        <MapViewDirections
-          origin={loc}
-          destination={des}
-          apikey={GOOGLE_MAPS_APIKEY}
-        />
+        {/* <MapViewDirections origin={loc} destination={des} apikey="" /> */}
       </MapView>
 
       <IconButton
