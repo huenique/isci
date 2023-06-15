@@ -49,6 +49,13 @@
       "eas": {
         "projectId": "e41b26ef-b142-43e2-b768-a8142bd078e7"
       }
+    },
+    "notification": {
+      "icon": "./assets/icon.png",
+      "color": "#9384D1",
+      "androidMode": "default",
+      "androidCollapsedTitle": "ISCI User Information",
+      "iosDisplayInForeground": true
     }
   }
 }

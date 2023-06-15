@@ -18,6 +18,8 @@ import {
   registerTranslation
 } from 'react-native-paper-dates';
 
+import { scheduleUserNotification } from '../utils/notification';
+
 registerTranslation('en', en);
 
 const db = SQLite.openDatabase('isci.db');
@@ -126,7 +128,7 @@ export default function UserAccount() {
             medicine,
             avatar
           ],
-          () => console.info('User saved to database'),
+          () => scheduleUserNotification(),
           (_transaction: SQLite.SQLTransaction, _error: SQLite.SQLError) => {
             return true;
           }
