@@ -120,6 +120,7 @@ export default function EvacuationCenter() {
         zoomEnabled
         zoomTapEnabled
       >
+        {/* Custom user location pin */}
         {/* <Marker coordinate={loc} flat={true}>
           <MaterialCommunityIcons
             name={'circle-outline' as 'material-design'}
@@ -132,6 +133,8 @@ export default function EvacuationCenter() {
           origin={loc}
           destination={des}
           apikey={GOOGLE_MAPS_APIKEY}
+          strokeWidth={4}
+          strokeColor={theme.colors.primary}
         />
       </MapView>
 
