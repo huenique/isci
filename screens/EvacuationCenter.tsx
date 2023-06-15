@@ -79,6 +79,8 @@ export default function EvacuationCenter() {
         setErrorMsg('Permission to access location was denied');
         return;
       }
+
+      getUserLocation();
     })();
   });
 
@@ -93,13 +95,13 @@ export default function EvacuationCenter() {
   let loc = location || CHURCH;
   let des = destination || CHURCH;
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      getUserLocation();
-    }, 5000);
+  // React.useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     getUserLocation();
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -108,19 +110,23 @@ export default function EvacuationCenter() {
       </View> */}
 
       <MapView
+        provider={PROVIDER_GOOGLE}
         initialRegion={CHURCH}
         ref={ref}
         style={styles.map}
-        zoomEnabled={false}
-        provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
+        showsMyLocationButton
+        showsCompass
+        zoomEnabled
+        zoomTapEnabled
       >
-        <Marker coordinate={loc} flat={true}>
+        {/* <Marker coordinate={loc} flat={true}>
           <MaterialCommunityIcons
             name={'circle-outline' as 'material-design'}
             size={24}
             color="black"
           />
-        </Marker>
+        </Marker> */}
         <Marker coordinate={des} />
         <MapViewDirections
           origin={loc}
@@ -129,7 +135,7 @@ export default function EvacuationCenter() {
         />
       </MapView>
 
-      <IconButton
+      {/* <IconButton
         style={{
           position: 'absolute',
           bottom: 0,
@@ -142,7 +148,7 @@ export default function EvacuationCenter() {
         containerColor={theme.colors.primary}
         onPress={getUserLocation}
         mode="contained"
-      />
+      /> */}
     </View>
   );
 }
