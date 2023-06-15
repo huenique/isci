@@ -1,7 +1,15 @@
 import * as Linking from 'expo-linking';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Dialog, List, Portal, Provider, Text, useTheme } from 'react-native-paper';
+import {
+  Button,
+  Dialog,
+  List,
+  Portal,
+  Provider,
+  Text,
+  useTheme
+} from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
