@@ -46,6 +46,14 @@ const CONTACTS: {
       cellphone: '0932 140 2709',
       telephone: '793-3160'
     }
+  },
+  {
+    name: 'Tayabas Community Hospital',
+    icon: 'hospital-building',
+    contact: {
+      cellphone: null,
+      telephone: '(042793) 2216'
+    }
   }
 ];
 

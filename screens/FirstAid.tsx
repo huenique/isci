@@ -1,20 +1,6 @@
 import * as React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import {
-  Card,
-  Divider,
-  List,
-  Modal,
-  Paragraph,
-  Portal,
-  Text
-} from 'react-native-paper';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Card, Divider, List, Modal, Paragraph, Portal, Text } from 'react-native-paper';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
