@@ -51,7 +51,7 @@ const CONTACTS: {
     name: 'Tayabas City Fire Station',
     icon: 'fire-truck',
     contact: {
-      cellphone: '0932 140 2709',
+      cellphone: '0932 140 2703',
       telephone: '793-3160'
     }
   },
