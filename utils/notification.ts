@@ -39,7 +39,11 @@ function fetchAllUsers() {
           const usersArray = rows._array;
           const formattedUsers = usersArray.map((user) => {
             const { name, sex, age, allergies, diseases, medicine } = user;
-            return `- Name: ${name || ''}\n- Sex: ${sex || ''}\n- Age: ${age || ''}\n- Allergies: ${allergies || ''}\n- Diseases: ${diseases || ''}\n- Medicine: ${medicine || ''}\n`;
+            return `- Name: ${name || ''}\n- Sex: ${sex || ''}\n- Age: ${
+              age || ''
+            }\n- Allergies: ${allergies || ''}\n- Diseases: ${
+              diseases || ''
+            }\n- Medicine: ${medicine || ''}\n`;
           });
           resolve(formattedUsers.join('\n'));
         },

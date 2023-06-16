@@ -3,7 +3,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { IconButton, MD3Colors, Text, useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 
 // import MapViewDirections from 'react-native-maps-directions';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -46,30 +46,35 @@ export default function EvacuationCenter() {
       initialRegion: CHURCH
     })
   );
-  const [location, setLocation] = React.useState<Region | null>(null);
-  const [destination, setDestination] = React.useState<Region | null>(null);
+  const [userLocation, setUserLocation] = React.useState<Region>(CHURCH);
+  const [destination, setDestination] = React.useState<Region>(CHURCH);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
-  const getUserLocation = async () => {
-    const location = await Location.getCurrentPositionAsync({});
-    const loc = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
+  const getUserLocation = async (animate: boolean = false) => {
+    const currentPosition = await Location.getCurrentPositionAsync({});
+    const currentRegion = {
+      latitude: currentPosition.coords.latitude,
+      longitude: currentPosition.coords.longitude,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01
     };
     const nearest = getNearest(
-      calculateDistance(loc.latitude, loc.longitude, CRITICAL_FACILITIES)
+      calculateDistance(
+        currentRegion.latitude,
+        currentRegion.longitude,
+        CRITICAL_FACILITIES
+      )
     ).facility;
 
-    setLocation(loc);
+    setUserLocation(currentRegion);
     setDestination({
       latitude: nearest.latitude,
       longitude: nearest.longitude,
       latitudeDelta: 0.01,
       longitudeDelta: 0.01
     });
-    ref.current.animateToRegion(loc, 1000);
+
+    if (animate) ref.current.animateToRegion(currentRegion, 1000);
   };
 
   useMountEffectOnce(() => {
@@ -80,7 +85,7 @@ export default function EvacuationCenter() {
         return;
       }
 
-      getUserLocation();
+      await getUserLocation(true);
     })();
   });
 
@@ -92,16 +97,13 @@ export default function EvacuationCenter() {
     );
   }
 
-  let loc = location || CHURCH;
-  let des = destination || CHURCH;
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      (async () => getUserLocation())();
+    }, 5000);
 
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     getUserLocation();
-  //   }, 5000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -128,10 +130,10 @@ export default function EvacuationCenter() {
             color="black"
           />
         </Marker> */}
-        <Marker coordinate={des} />
+        <Marker coordinate={destination} />
         <MapViewDirections
-          origin={loc}
-          destination={des}
+          origin={userLocation}
+          destination={destination}
           apikey={GOOGLE_MAPS_APIKEY}
           strokeWidth={4}
           strokeColor={theme.colors.primary}
