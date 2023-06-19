@@ -15,7 +15,6 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 type Contact = {
   cellphone: string | null;
-  telephone: string | null;
 };
 
 const CONTACTS: {
@@ -28,23 +27,20 @@ const CONTACTS: {
     icon: 'car-emergency',
     contact: {
       cellphone: '911',
-      telephone: null
     }
   },
   {
     name: 'Tayabas City Disaster Risk Reduction and Management Office',
     icon: 'office-building',
     contact: {
-      cellphone: '0917 839 8483',
-      telephone: '713-2008'
+      cellphone: '0951 218 1022',
     }
   },
   {
     name: 'Tayabas City Police Station',
     icon: 'police-badge',
     contact: {
-      cellphone: null,
-      telephone: '793-3166'
+      cellphone: '0917 839 8483',
     }
   },
   {
@@ -52,15 +48,13 @@ const CONTACTS: {
     icon: 'fire-truck',
     contact: {
       cellphone: '0932 140 2703',
-      telephone: '793-3160'
     }
   },
   {
     name: 'Tayabas Community Hospital',
     icon: 'hospital-building',
     contact: {
-      cellphone: null,
-      telephone: '(042793) 2216'
+      cellphone: '0945 273 8398',
     }
   }
 ];
@@ -70,7 +64,6 @@ export default function EmergencyContacts() {
   const [visible, setVisible] = React.useState(false);
   const [dialogContent, setDialogContent] = React.useState<Contact>({
     cellphone: null,
-    telephone: null
   });
 
   const showDialog = (contact: Contact) => {
@@ -119,21 +112,6 @@ export default function EmergencyContacts() {
                     variant="bodyLarge"
                   >
                     {dialogContent.cellphone}
-                  </Text>
-                </View>
-              ) : null}
-              {dialogContent.telephone ? (
-                <View style={styles.dialogContentItem}>
-                  <MaterialCommunityIcons
-                    name={'phone-classic' as 'material-design'}
-                    size={32}
-                    color="rgba(0, 0, 0, 0.502)"
-                  />
-                  <Text
-                    style={{ color: 'rgba(0, 0, 0, 0.502)' }}
-                    variant="bodyLarge"
-                  >
-                    {dialogContent.telephone}
                   </Text>
                 </View>
               ) : null}
